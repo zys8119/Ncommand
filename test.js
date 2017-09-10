@@ -1,13 +1,6 @@
-
-// new require("./command")()
-//     .Options("b","a   ",1,{},465,["303"])
-//     .Options("b","a   ",1,{},465,["33"])
-//     .console.rad("asdas")
-var command = require("./command");
+var command = require("./index");
 new command()
     .Commands({
-        txt:["sdsad","adsadas","asdasdas"],
-        callback:123
+        log:["aa","asdasdas","<a>",{},[1],"sdfsdf...red('sdfsd')","...info('12')","...info()",".red('sdfsd')","..red('sfdsfs')","weqw...info()wqe..info()...red('1')"],
     })
-    .Commands()
-    .Commands()
+    .Options()

@@ -13,11 +13,12 @@ const command = function(Options){
     Options = Options || {};
     //默认["Commands","Options"]，命令和选项
     Options.input = Options.input || ["Commands","Options"];
+    //判断数据
     if(Options.constructor.name != "Object"){
-        this.ERR("command方法的Options参数类型错误,应该为一个Object对象,例如：{}");
+        this.ERR("command方法的Options参数类型错误,应该为一个Object对象,例如：command({})");
     }
     if(["Object","Array"].indexOf(Options.input.constructor.name) < 0){
-        this.ERR("command方法的Options.input参数类型错误,应该为一个Array对象，例如：[]");
+        this.ERR("command方法的Options.input参数类型错误,应该为一个Array对象，例如：command({input:[]})");
     }
     //注册Options方法
     this.onInput = function (Str) {
@@ -30,6 +31,7 @@ const command = function(Options){
     for(var i = 0,len = Options.input.length ; i < len; i++){
         //注册Options.input相关事件
         let input = Options.input[i];
+        //判断数据
         switch (input.constructor.name){
             case "String":
                 this.onInput(input);
@@ -37,16 +39,16 @@ const command = function(Options){
             case "Object":
                 if(input.title && input.title.constructor.name != "String"){
                     this.ERR(`command方法的Options.input[0].title参数类型错误,
-                        \n 应该为一个String对象，例如：[{title:"String"}]，说明：(选填，填后必须是字符串)`);
+                        \n 应该为一个String对象，例如：command({input:[{title:"String",fnName:"String"}]})，说明：(title选填，填后必须是String)`);
                 }else
                 if(!input.fnName || input.fnName.constructor.name != "String"){
                     this.ERR(`command方法的Options.input[0].fnName参数类型错误,
-                        \n 应该为一个String对象，例如：[{fnName:"String"}，说明：(必填)]`);
+                        \n 应该为一个String对象，例如：command({input:[{fnName:"String"}]})，说明：(fnName必填)`);
                 }
                 this.onInput(input.fnName);
                 break;
             default:
-                this.ERR("command方法的Options.input参数类型错误,应该为一个Array对象，例如：[String|Object, ...]");
+                this.ERR(`command方法的Options.input参数类型错误,应该为一个Array对象，例如：command({input:["String"]})`);
                 break;
         }
     }
@@ -72,25 +74,33 @@ command.prototype = {
             console.log(Str)
         };
         var args = this[Str].arguments[0];
-        // var args = this[Str].arguments;
-        // for(var i in args){
-        //     args[i] = ((i == 0)?"    ":" ")+args[i];
-        // };
-        // console.log(this[Str].arguments)
-        //
         if(args){
             if(args.constructor.name == "Object"){
-                if(args.fn && args.callback.constructor.name != "function"){
-                    this.ERR(`command.${Str}方法的参数类型错误,
-                        \n 应该为一个String对象，例如：[{title:"String"}]，说明：(选填，填后必须是字符串)`);
+                if(args.callback && args.callback.constructor.name != "Function"){
+                    this.ERR(`command.${Str}方法的command.${Str}.callback 参数类型错误,
+                        \n 应该为一个functiion对象，例如：${Str}({callback:"function"})，说明：(callback选填，填后必须是function)`);
                 }else
                 if(!args.log || args.log.constructor.name != "Array"){
                     this.ERR(`command.${Str}方法的command.${Str}.log 参数类型错误,
-                        \n 应该为一个Array对象，例如：[{fnName:"String"}，说明：(必填)]`);
+                        \n 应该为一个Array对象，例如：${Str}({log:"Array"})，说明：(必填)]`);
                 }
             }else{
-                this.ERR(`command.${Str}方法参数类型错误,应该为一个Object队形，例如：{log:"String:必填",callback:"function:选填"}`);
+                this.ERR(`command.${Str}方法参数类型错误,应该为一个Object对象，例如：${Str}a({log:"String:必填",callback:"function:选填"})`);
             }
+        }
+        if(args && args.log){
+            args.log = args.log.map(function(e,i){
+                return ((i == 0)?"    ":" ")+JSON.stringify(e);
+            });
+            // console.log.apply(null,args.log);//原始写法
+            //新增颜色输入控制
+            this.console.color(function () {
+                args.log.map(function(e,i){
+                    console.log(e,e.match(/\.{3}.*\(+([^\(\)])*?\)/img))
+                    // console.log(eval(`this.console[]`))
+                    // this.console
+                });
+            });
         }
 
     },
@@ -100,6 +110,7 @@ command.prototype = {
      */
     end:function (Opt) {
         Opt = Opt || '';
+        //判断数据
         switch (typeof Opt){
             case "string":
                 console.log(Opt);
@@ -108,7 +119,7 @@ command.prototype = {
                 Opt.call(this);
                 break;
             default:
-                this.ERR("command.end方法参数类型错误");
+                this.ERR("command.end方法参数类型错误,例如：end(string|function)");
                 break;
         }
         return this;
