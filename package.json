@@ -1,0 +1,22 @@
+{
+  "name": "Ncommand",
+  "version": "0.0.0",
+  "description": "Ncommand是一个控制台交互式命令解析控制器。可以快速便捷的开发一个新的脚手架。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zys8119/Ncommand.git"
+  },
+  "author": "张云山",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zys8119/Ncommand/issues"
+  },
+  "homepage": "https://github.com/zys8119/Ncommand#readme",
+  "dependencies": {
+    "ncol": "0.0.7"
+  }
+}
