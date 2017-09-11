@@ -78,11 +78,13 @@ command.prototype = {
     inInput:function (Str,StrTitle) {
         Str = Str || "";
         StrTitle = StrTitle || "";
+        //追加回调callback集合
         this.callbacks.push({
             Str:Str,
             StrTitle:StrTitle,
             arguments:this[Str].arguments[0],
-            init:this.inInput
+            callback:this[Str].arguments[0].callback || new Function,
+            init:this.inptInit
         });
         return this;
     },
@@ -90,7 +92,7 @@ command.prototype = {
      *@初始化命令方法
      *@param {String} Str
      */
-    inptInit:function (Str,StrTitle) {
+    inptInit:function (Str,StrTitle,argumentss) {
         Str = Str || "";
         StrTitle = StrTitle || "";
         var _this = this;
@@ -99,7 +101,8 @@ command.prototype = {
             this[Str+"Bool"] = false;
             console.log(Str,StrTitle);
         };
-        var args = this[Str].arguments[0];
+        // var args = this[Str].arguments[0];
+        var args = argumentss;
         ///判断数据
         if(args){
             if(args.constructor.name == "Object"){
@@ -212,7 +215,7 @@ command.prototype = {
         callback = callback || function () {
             this.console.color(function () {
               this
-                  .log("如需帮助请执行命令 ")
+                  .log("温馨提示：如需帮助请执行命令 ")
                   .green("-help")
                   .log(" 或 ")
                   .green("-h")
@@ -245,8 +248,28 @@ command.prototype = {
         if(callback.constructor.name != "Function"){
             this.ERR("command.init，callback应为Function对象，例如：init(Function)");
         };
-        callback.call(this);
+        var _this = this;
+        //判断argv参数是否匹配
+        this.argv.map(function (argv) {
+            _this.callbacks.map(function (e) {
+                //如果匹配执行对应的回调方法
+                if(e.arguments.log.length > 0 && e.arguments.log[0] == argv){
+                    //清除临时存储命令回调callback集合
+                    _this.callbacks = [];
+                    //执行回调,并且传入当前的argv参数
+                    e.callback.call(_this,e.arguments.log);
+                    //退出当前程序
+                    process.exit();
+                };
+            });
+        });
+        //如果没有匹配到就提示帮助或command命令等相关信息
+        for(var i = 0 ; i< this.callbacks.length;i++){
+            var initData = this.callbacks[i];
+            initData.init.call(this,initData.Str,initData.StrTitle,initData.arguments);
+        };
         this.showHelp(showCallback,"init");
+        callback.call(this);
         return this;
     },
     /**
