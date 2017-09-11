@@ -13,7 +13,8 @@ const command = function(Options){
     Options = Options || {};
     //默认["Commands","Options"]，命令和选项
     Options.input = Options.input || ["Commands","Options"];
-    this._$$$_OptionsData_$$$_ = Options;
+    //存储命令回调callback集合
+    this.callbacks = [];
     //判断数据
     if(Options.constructor.name != "Object"){
         this.ERR("command方法的Options参数类型错误,应该为一个Object对象,例如：command({})");
@@ -30,7 +31,7 @@ const command = function(Options){
         };
         command.prototype[Str] = (function(Str,title){
             return function () {
-                this.inptInit(Str,title);
+                this.inInput(Str,title);
                 return this;
             };
         })(Str,Options.input[i].title);
@@ -69,6 +70,22 @@ const command = function(Options){
     })(process.argv);
 };
 command.prototype = {
+    /**
+     *@暂存数据
+     *@param {String} Str
+     *@param {String} StrTitle
+     */
+    inInput:function (Str,StrTitle) {
+        Str = Str || "";
+        StrTitle = StrTitle || "";
+        this.callbacks.push({
+            Str:Str,
+            StrTitle:StrTitle,
+            arguments:this[Str].arguments[0],
+            init:this.inInput
+        });
+        return this;
+    },
     /**
      *@初始化命令方法
      *@param {String} Str
@@ -185,6 +202,52 @@ command.prototype = {
         Str = Str || "错误";
         this.console.errorBG(new Error(Str));
         process.exit();
+    },
+    /**
+     * @显示帮助
+     * @param {function} callback
+     */
+    showHelp:function (callback,type) {
+        type = type || '';
+        callback = callback || function () {
+            this.console.color(function () {
+              this
+                  .log("如需帮助请执行命令 ")
+                  .green("-help")
+                  .log(" 或 ")
+                  .green("-h")
+                  .log(" 查看帮助");
+            });
+            return this;
+        };
+        if(callback.constructor.name != "Function"){
+            switch (type){
+                case "init":
+                    this.ERR("command.init，showCallback应为Function对象，例如：init(Function,Function)");
+                    break;
+                default:
+                    this.ERR("command.showHelp方法参数类型错误，callback应为Function对象，例如：showHelp(Function)");
+                    break;
+            }
+        };
+        callback.call(this);
+        return this;
+    },
+    /**
+     * @初始化command交互式命令解析器
+     * 回调
+     * @param {function} callback
+     * 帮助回调
+     * @param {function} showCallback
+     */
+    init:function (callback,showCallback) {
+        callback = callback || new Function;
+        if(callback.constructor.name != "Function"){
+            this.ERR("command.init，callback应为Function对象，例如：init(Function)");
+        };
+        callback.call(this);
+        this.showHelp(showCallback,"init");
+        return this;
     },
     /**
      * @扩展方法集合
