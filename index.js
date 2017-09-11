@@ -13,6 +13,7 @@ const command = function(Options){
     Options = Options || {};
     //默认["Commands","Options"]，命令和选项
     Options.input = Options.input || ["Commands","Options"];
+    this._$$$_OptionsData_$$$_ = Options;
     //判断数据
     if(Options.constructor.name != "Object"){
         this.ERR("command方法的Options参数类型错误,应该为一个Object对象,例如：command({})");
@@ -22,7 +23,11 @@ const command = function(Options){
     }
     //注册Options方法
     this.onInput = function (Str) {
-        this[Options.input[i]+"Bool"] = true;
+        if(Options.input[i].fnName){
+            this[Options.input[i].fnName+"Bool"] = true;
+        }else{
+            this[Options.input[i]+"Bool"] = true;
+        };
         command.prototype[Str] = function () {
             this.inptInit(Str);
             return this;
@@ -72,9 +77,10 @@ command.prototype = {
         //判断是否打印command标题
         if(this[Str+"Bool"]){
             this[Str+"Bool"] = false;
-            console.log(Str)
+            console.log(Str,this._$$$_OptionsData_$$$_);
         };
         var args = this[Str].arguments[0];
+        ///判断数据
         if(args){
             if(args.constructor.name == "Object"){
                 if(args.callback && args.callback.constructor.name != "Function"){
@@ -89,6 +95,7 @@ command.prototype = {
                 this.ERR(`command.${Str}方法参数类型错误,应该为一个Object对象，例如：${Str}a({log:"String:必填",callback:"function:选填"})`);
             }
         }
+        //以下是颜色处理
         if(args && args.log){
             args.log = args.log.map(function(e,i){
                 return ((i == 0)?"    ":" ")+JSON.stringify(e);
@@ -101,30 +108,36 @@ command.prototype = {
                     logStr += _this.extends.removeSyh(e);
                 });
                 var newArgsLog = logStr.match(/\.{3}(\s|\w)*\(([^\(\)])*\)/img);
+                //判断是否存在颜色渲染方法
                 if(newArgsLog){
+                    //如果存在进行颜色渲染处理
                     for(var i = 0 ,len = newArgsLog.length; i < len ; i++){
                         var logStrExcept = logStr.substring(0,logStr.indexOf(newArgsLog[i]));
                         var logStrColorFn = newArgsLog[i].replace(/^\.{3}/,"");
                         var  name = logStrColorFn.replace(/\(.*\)/img,"");
+                        //不含颜色方法的默认渲染
                         this.log(logStrExcept);
+                        //判断是否合法的颜色方法
                         if(eval(`this.${name}`)){
+                            //渲染对应的颜色处理
                             eval(`this.${logStrColorFn}`);
                         }else{
+                            //不存在的颜色方法处理
                             this.log(newArgsLog[i]);
                         };
                         var logStrNew = logStr.substring(logStr.indexOf(newArgsLog[i])+newArgsLog[i].length,logStr.length);
                         logStr = logStrNew;
                         if(!logStr.match(/\.{3}(\s|\w)*\(([^\(\)])*\)/img)){
+                            //尾部处理
                             this.log(logStr)
                         };
                     };
                 }else {
+                    //如果不存在默认渲染
                     this.log(logStr);
                     if(args.log.length == 0){
-                        this.log("5646")
-                    }else if(args.log){
-                        console.log(args.log[0])
-                    }
+                        this.yellow(`温馨提示：您的command.${Str}方法里面有一个${Str}方法的参数log字段数组为空，建议填写内容。`)
+                    };
                 }
             });
         }
