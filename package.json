@@ -1,6 +1,6 @@
 {
-  "name": "Ncommand",
-  "version": "0.0.0",
+  "name": "ncommand",
+  "version": "0.0.1",
   "description": "Ncommand是一个控制台交互式命令解析控制器。可以快速便捷的开发一个新的脚手架。",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,6 @@
   "homepage": "https://github.com/zys8119/Ncommand#readme",
   "dependencies": {
     "ncol": "0.0.7"
-  }
+  },
+  "devDependencies": {}
 }
