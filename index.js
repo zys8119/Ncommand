@@ -68,6 +68,7 @@ command.prototype = {
      */
     inptInit:function (Str) {
         Str = Str || "";
+        var _this = this;
         //判断是否打印command标题
         if(this[Str+"Bool"]){
             this[Str+"Bool"] = false;
@@ -93,13 +94,37 @@ command.prototype = {
                 return ((i == 0)?"    ":" ")+JSON.stringify(e);
             });
             // console.log.apply(null,args.log);//原始写法
-            //新增颜色输入控制
+            //新增颜色输入控制,颜色使用说明：必须以 `...colorFn(content)` 形式使用
             this.console.color(function () {
-                args.log.map(function(e,i){
-                    console.log(e,e.match(/\.{3}.*\(+([^\(\)])*?\)/img))
-                    // console.log(eval(`this.console[]`))
-                    // this.console
-                });
+                for(var i = 0 ,len = args.log.length ; i<len ; i++){
+                    var newArgsLog = args.log[i].match(/\.{3}(\s|\w)*\(([^\(\)])*\)/img);
+                    var newArgsLogOLd = newArgsLog;
+                    if(newArgsLog){
+                        newArgsLog = newArgsLog.map(function(p1){
+                            return p1.replace(/^\.{3}/,"")
+                        });
+                        for(var j = 0 ,lenj = newArgsLog.length ; j<lenj ; j++){
+                            var  name = newArgsLog[j].replace(/\(.*\)/img,"");
+                            if(eval(`this.${name}`)){
+                                //匹配除正确方法以外的内容
+                                var newArgsLogExcept = args.log[i].match(/(.*?(\.{3}(\s|\w)*\(([^\(\)])*\)))|[^"]/img).map(function(e){
+                                    return e.replace(/(\.{3}(\s|\w)*\(([^\(\)])*\))/img,"");
+                                });
+                                for(var jj = 0 ,lenjj = newArgsLogExcept.length ; jj<lenjj ; jj++){
+                                    this.log(newArgsLogExcept[jj]);
+                                };
+                                //如果是一个正确的颜色方法，那么就使用对应的颜色方法渲染
+                                eval(`this.${newArgsLog[j]}`);
+                            }else{
+                                //如果不是就用默认方法渲染
+                                this.log(newArgsLogOLd);
+                            };
+                        };
+                    }else{
+                        //如果不包含颜色方法是内容就用默认渲染
+                        this.log((function (s) {return (s)?s[0]:"";})(args.log[i].match(/^(\s)*/img))+args.log[i].replace(/^(\s)*"|"(\s)*$/img,""));
+                    };
+                };
             });
         }
 
