@@ -28,10 +28,12 @@ const command = function(Options){
         }else{
             this[Options.input[i]+"Bool"] = true;
         };
-        command.prototype[Str] = function () {
-            this.inptInit(Str);
-            return this;
-        };
+        command.prototype[Str] = (function(Str,title){
+            return function () {
+                this.inptInit(Str,title);
+                return this;
+            };
+        })(Str,Options.input[i].title);
     }
     for(var i = 0,len = Options.input.length ; i < len; i++){
         //注册Options.input相关事件
@@ -71,13 +73,14 @@ command.prototype = {
      *@初始化命令方法
      *@param {String} Str
      */
-    inptInit:function (Str) {
+    inptInit:function (Str,StrTitle) {
         Str = Str || "";
+        StrTitle = StrTitle || "";
         var _this = this;
         //判断是否打印command标题
         if(this[Str+"Bool"]){
             this[Str+"Bool"] = false;
-            console.log(Str,this._$$$_OptionsData_$$$_);
+            console.log(Str,StrTitle);
         };
         var args = this[Str].arguments[0];
         ///判断数据
