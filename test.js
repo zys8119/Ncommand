@@ -1,7 +1,7 @@
 var command = require("./index");
 new command()
     .Commands({
-        log:["a","这是一个命令",{},[]],
+        log:["a","这是...red('一')个命令",{},[]],
         callback:function () {
             this
                 .Commands({

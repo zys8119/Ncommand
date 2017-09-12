@@ -4,13 +4,87 @@ Ncommand是一个控制台交互式命令解析控制器。可以快速便捷的
 ## 安装
 
 ```
-npm i Ncommand
+npm i ncommand
 ```
 
 ## 教程
-
->例子
+##### 1、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 2、new 一个 cmmmand
+>###### 说明:
+>######     Optionsc(Object),
+>######     Optionsc.input(Object|Array)，例如：
+    new command({input:[]}) 
+>######     Optionsc.input[0,1,2....] (String|Object)，例如：
+```javascript
+new command(Options)
+```
+##### 3、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 4、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 5、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 6、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 7、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 8、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 9、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+##### 10、引入Ncommand
+```javascript
+var command = require("Ncommand");
+```
+#### 例子如下
 
 ```javascript
-
+var command = require("Ncommand");
+new command()
+    .Commands({
+        log:["a","这是...red('一')个命令",{},[]],
+        callback:function () {
+            this
+                .Commands({
+                    log:["c","这是a命令下的c命令",{},[]],
+                    callback:function () {
+                        console.log(this)
+                    }
+                })
+                .Commands({
+                    log:["-h","这是帮助命令",{},[]],
+                    callback:function () {
+                        console.log(this)
+                    }
+                })
+                .init();
+        }
+    })
+    .Commands({
+        log:["b"],
+    })
+    .Options({
+        log:["c"],
+        callback:function (w) {
+            this.console.warn("我是当前的argv参数："+w)
+        }
+    })
+    .init();
 ```
