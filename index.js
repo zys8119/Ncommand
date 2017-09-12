@@ -238,8 +238,6 @@ command.prototype = {
                     _this.callbacks = [];
                     //执行回调,并且传入当前的argv参数
                     e.callback.call(_this,e.arguments.log);
-                    //退出当前程序
-                    process.exit();
                 };
             });
         });
