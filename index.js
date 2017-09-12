@@ -167,31 +167,11 @@ command.prototype = {
         return this;
     },
     /**
-     *@备注方法
-     *@param {String|Function} Opt
-     */
-    end:function (Opt) {
-        Opt = Opt || '';
-        //判断数据
-        switch (typeof Opt){
-            case "string":
-                console.log(Opt);
-                break;
-            case "function":
-                Opt.call(this);
-                break;
-            default:
-                this.ERR("command.end方法参数类型错误,例如：end(string|function)");
-                break;
-        }
-        return this;
-    },
-    /**
      * @颜色打印输出 继承ncl
      **/
     console:ncol,
     /**
-     * @错误打印
+     * @错误打印扩展
      * @param {string} Str
      **/
     //字体颜色
@@ -231,7 +211,7 @@ command.prototype = {
                 default:
                     this.ERR("command.showHelp方法参数类型错误，callback应为Function对象，例如：showHelp(Function)");
                     break;
-            }
+            };
         };
         callback.call(this);
         return this;
@@ -266,10 +246,49 @@ command.prototype = {
         //如果没有匹配到就提示帮助或command命令等相关信息
         for(var i = 0 ; i< this.callbacks.length;i++){
             var initData = this.callbacks[i];
-            initData.init.call(this,initData.Str,initData.StrTitle,initData.arguments);
+            if(initData.type && initData.type == 'end'){
+                switch (initData.dataType){
+                    case "string":
+                        console.log(initData.Opt);
+                        break;
+                    case "function":
+                        initData.Opt.call(this);
+                        break;
+                };
+            }else{
+                initData.init.call(this,initData.Str,initData.StrTitle,initData.arguments);
+            };
         };
         this.showHelp(showCallback,"init");
         callback.call(this);
+        return this;
+    },
+    /**
+     *@备注方法
+     *@param {String|Function} Opt
+     */
+    end:function (Opt) {
+        Opt = Opt || '';
+        //判断数据
+        switch (typeof Opt){
+            case "string":
+                this.callbacks.push({
+                    type:"end",
+                    dataType:"string",
+                    Opt:Opt,
+                });
+                break;
+            case "function":
+                this.callbacks.push({
+                    type:"end",
+                    dataType:"function",
+                    Opt:Opt,
+                });
+                break;
+            default:
+                this.ERR("command.end方法参数类型错误,例如：end(string|function)");
+                break;
+        }
         return this;
     },
     /**
