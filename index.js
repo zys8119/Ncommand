@@ -237,7 +237,9 @@ command.prototype = {
                     //清除临时存储命令回调callback集合
                     _this.callbacks = [];
                     //执行回调,并且传入当前的argv参数
-                    e.callback.call(_this,e.arguments.log);
+                    if(!e.callback.call(_this,e.arguments.log)){
+                        process.exit();
+                    };
                 };
             });
         });

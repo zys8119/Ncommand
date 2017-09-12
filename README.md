@@ -93,7 +93,8 @@ new command()
             console.log(this);//this是new command()对象，承接上下文
         });
     //备注：如果showCallback传，则会打印帮助提示信息
-    //     如果showCallback不传，则不会打印帮助提示信息，等同于你在自定义帮助提示。
+    //      如果showCallback不传，则不会打印帮助提示信息，等同于你在自定义帮助提示。
+	//      如果showCallback的返回值为true的话，不结束当前程序，默认为false，即结束当前程序
 
 ##### 5、.end(Opt)
 ```javascript
