@@ -15,9 +15,16 @@ var command = require("Ncommand");
 ##### 2、new 一个 cmmmand
 >###### 说明:
 >######     Optionsc(Object),
->######     Optionsc.input(Object|Array)，例如：
+>######     Optionsc.input(Object|Array)，默认为["Commands","Options"]，例如：
     new command({input:[]}) 
 >######     Optionsc.input[0,1,2....] (String|Object)，例如：
+    new command({input:["name1","name2"]})
+    new command({input:[{
+        fnName:"name1",
+        title:"我是附带说明" //选填
+    },"name2"]})
+    //如果更改了默认的Optionsc参数选项的话，那么后面就该调用对应方法，例如：
+    new command({input:["name1","name2"]}).name1().name2();
 ```javascript
 new command(Options)
 ```
