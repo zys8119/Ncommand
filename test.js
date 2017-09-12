@@ -20,6 +20,20 @@ new command()
         }
     })
     .end("我是插入的信息")
+    .end(function() {
+        this.console
+            .red("红色")
+            .yellow("黄色")
+            .color(function () {
+                this
+                    .red(" 哈哈~")
+                    .yellow("哈哈~")
+                    .success("哈哈~")
+                    .info("哈哈~")
+            })
+            .success("成功");
+            //...
+    })
     .Commands({
         log:["b"],
     })

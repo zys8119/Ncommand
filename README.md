@@ -58,10 +58,11 @@ new command()
                          //这里是当前参数的回调函数
                          console.log(this);//this是new command()对象，承接上下文
                          console.log(agvs);//agvs是当前执行参数，即 “ 参数B ”
-                         //.....可以无限嵌套下去
+                         //.....可以无限嵌套下去或者执行其他事物
                      }
                  })
-                 //.....可以无限嵌套下去
+                 .init();
+                 //.....可以无限嵌套下去或者执行其他事物
             }
         })
 ##### 4、执行初始化 .init(callback,showCallback)
@@ -93,20 +94,47 @@ new command()
         });
     //备注：如果showCallback传，则会打印帮助提示信息
     //     如果showCallback不传，则不会打印帮助提示信息，等同于你在自定义帮助提示。
->######     param.callback(Function)，选填，例如：
+
+##### 5、.end(Opt)
+```javascript
+new command()
+    .Commands({
+        log:[args,...]
+    })
+    .end(Opt)
+    .init(callback,showCallback);
+```
+>###### 说明:
+>######     Opt {String|Function},选填，不填插入一行空信息，例如：
     new command()
         .Commands({
-            log:["参数A"，args,...]，
-            callback:function(agvs){
-                //这里是当前参数的回调函数
-                console.log(this);//this是new command()对象，承接上下文
-                console.log(agvs);//agvs是当前执行参数，即 “ 参数A ”
-            }
+            log:[args,...]
         })
-#### 例子如下
+        .end("我是插入信息")
+        .end(function(){
+            //这是end的回调方法
+            console.log(this);//this是new command()对象，承接上下文
+            //彩色信息输入(如需彩色输入，请参考：https://github.com/zys8119/ncol)
+            this.console
+                        .red("红色")
+                        .yellow("黄色")
+                        .color(function () {
+                            this
+                                .red(" 哈哈~")
+                                .yellow("哈哈~")
+                                .success("哈哈~")
+                                .info("哈哈~")
+                        })
+                        .success("成功");
+        })
+        .init(function(){
+            //这是init的回调方法
+            console.log(this);//this是new command()对象，承接上下文
+        });
 
+#### 例子如下
 ```javascript
-var command = require("Ncommand");
+var command = require("./index");
 new command()
     .Commands({
         log:["a","这是...red('一')个命令",{},[]],
@@ -127,10 +155,24 @@ new command()
                 .init();
         }
     })
+    .end("我是插入的信息")
+    .end(function() {
+        this.console
+            .red("红色")
+            .yellow("黄色")
+            .color(function () {
+                this
+                    .red(" 哈哈~")
+                    .yellow("哈哈~")
+                    .success("哈哈~")
+                    .info("哈哈~")
+            })
+            .success("成功");
+            //...
+    })
     .Commands({
         log:["b"],
     })
-    .end("我是插入的信息")
     .Options({
         log:["c"],
         callback:function (w) {
@@ -139,3 +181,5 @@ new command()
     })
     .init();
 ```
+###### 具体方法及配置请查看[源代码](https://github.com/zys8119/Ncommand/blob/master/index.js)
+###### 如需颜色输出请查看ncol[API文档](https://github.com/zys8119/ncol)
