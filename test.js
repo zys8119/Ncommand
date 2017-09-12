@@ -19,6 +19,7 @@ new command()
                 .init();
         }
     })
+    .end("我是插入的信息")
     .Commands({
         log:["b"],
     })
