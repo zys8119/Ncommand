@@ -39,8 +39,9 @@ new command()
     })
     .Options({
         log:["c"],
-        callback:function (w) {
-            this.console.warn("我是当前的argv参数："+w)
+        callback:function (w,e) {
+            this.console.warn("我是当前的argv参数："+w);
+            this.console.warn("我是c命令之后的argv参数："+e);
         }
     })
     .init();

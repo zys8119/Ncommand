@@ -15,6 +15,8 @@ const command = function(Options){
     Options.input = Options.input || ["Commands","Options"];
     //存储命令回调callback集合
     this.callbacks = [];
+    //存储命令回调函数的个数
+    this.callbacksIndex = 0;
     //判断数据
     if(Options.constructor.name != "Object"){
         this.ERR("command方法的Options参数类型错误,应该为一个Object对象,例如：command({})");
@@ -229,15 +231,17 @@ command.prototype = {
             this.ERR("command.init，callback应为Function对象，例如：init(Function)");
         };
         var _this = this;
+        //记录当前callbacks回调函数的个数
+        _this.callbacksIndex +=1;
         //判断argv参数是否匹配
         this.argv.map(function (argv) {
             _this.callbacks.map(function (e) {
                 //如果匹配执行对应的回调方法
-                if(e.arguments.log.length > 0 && e.arguments.log[0] == argv){
+                if(e.arguments && e.arguments.log.length > 0 && e.arguments.log[0] == argv){
                     //清除临时存储命令回调callback集合
                     _this.callbacks = [];
-                    //执行回调,并且传入当前的argv参数
-                    if(!e.callback.call(_this,e.arguments.log)){
+                    //执行回调,并且传入当前的argv和当前argv以后的argv参数
+                    if(!e.callback.call(_this,e.arguments.log, _this.argv.slice(_this.callbacksIndex,_this.argv.length))){
                         process.exit();
                     };
                 };

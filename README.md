@@ -47,17 +47,19 @@ new command()
     new command()
         .Commands({
             log:["参数A"，args,...]，
-            callback:function(agvs){
+            callback:function(agvs,newAgvs){
                 //这里是当前参数的回调函数
                 console.log(this);//this是new command()对象，承接上下文
                 console.log(agvs);//agvs是当前执行参数，即 “ 参数A ”
+                console.log(newAgvs);//newAgvs是当前执行参数以后的参数，例如： “node test.js 参数A 参数B... ”，即"包含参数B以后的参数"
                 this
                 .Commands({
                      log:["参数B"，args,...]，
-                     callback:function(agvs){
+                     callback:function(agvs,newAgvs){
                          //这里是当前参数的回调函数
                          console.log(this);//this是new command()对象，承接上下文
                          console.log(agvs);//agvs是当前执行参数，即 “ 参数B ”
+                         console.log(newAgvs);//newAgvs是当前执行参数以后的参数，例如： “node test.js 参数A 参数B... ”，即"包含参数B以后的参数"
                          //.....可以无限嵌套下去或者执行其他事物
                      }
                  })
@@ -92,8 +94,9 @@ new command()
             //帮助的回调方法
             console.log(this);//this是new command()对象，承接上下文
         });
-    //备注：如果showCallback传，则会打印帮助提示信息
-    //      如果showCallback不传，则不会打印帮助提示信息，等同于你在自定义帮助提示。
+    //备注：如果showCallback传，则不会打印帮助提示信息，等同于你在自定义帮助提示。
+    //      如果showCallback不传，则会打印帮助提示信息。
+    //      如果showCallback传null，则会打印帮助提示信息。
 	//      如果showCallback的返回值为true的话，不结束当前程序，默认为false，即结束当前程序
 
 ##### 5、.end(Opt)
@@ -176,8 +179,9 @@ new command()
     })
     .Options({
         log:["c"],
-        callback:function (w) {
-            this.console.warn("我是当前的argv参数："+w)
+        callback:function (w,e) {
+            this.console.warn("我是当前的argv参数："+w);
+            this.console.warn("我是c命令之后的argv参数："+e);
         }
     })
     .init();
