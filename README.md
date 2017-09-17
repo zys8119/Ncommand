@@ -43,7 +43,7 @@ new command()
         .Commands({
             log:[args,...]
         })
->######     param.log {Boolean}，选填，例如：
+>######     param.output {Boolean}，选填，例如：
     new command()
         .Commands({
             //默认为true，如果为true则是打印输出命令，如果为false则不输出命令，

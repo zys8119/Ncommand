@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90d0f7a0-43d0-4f03-bb53-d23a01617b23" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +15,18 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -532,15 +545,16 @@
       <workItem from="1505131776210" duration="11861000" />
       <workItem from="1505191447368" duration="6039000" />
       <workItem from="1505568299900" duration="3309000" />
-      <workItem from="1505613464917" duration="3431000" />
+      <workItem from="1505613464917" duration="3747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59502000" />
+    <option name="totallyTimeSpent" value="59818000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -556,7 +570,7 @@
       <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3260212" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13615733" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13615733" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Translate" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -732,25 +746,25 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="312">
-            <caret line="70" column="68" lean-forward="false" selection-start-line="70" selection-start-column="68" selection-end-line="70" selection-end-column="68" />
+          <first_editor relative-caret-position="268">
+            <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
             <folding>
-              <marker date="1505616747325" expanded="true" signature="2663:2740" ph="/** .Commands({ ...*/" />
-              <marker date="1505616747325" expanded="true" signature="2678:2705" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="3500:3530" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4569:5108" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4644:5102" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4689:4865" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4782:4847" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4893:5066" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="4983:5048" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5150:5479" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5253:5426" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5495:5521" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5536:5780" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5594:5774" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5795:5944" ph="{...}" />
-              <marker date="1505616747325" expanded="true" signature="5870:5938" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="2666:2743" ph="/** .Commands({ ...*/" />
+              <marker date="1505617155858" expanded="true" signature="2681:2708" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="3503:3533" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4572:5111" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4647:5105" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4692:4868" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4785:4850" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4896:5069" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="4986:5051" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5153:5482" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5256:5429" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5498:5524" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5539:5783" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5597:5777" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5798:5947" ph="{...}" />
+              <marker date="1505617155858" expanded="true" signature="5873:5941" ph="{...}" />
             </folding>
           </first_editor>
           <second_editor />
